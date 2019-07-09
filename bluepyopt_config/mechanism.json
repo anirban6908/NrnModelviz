@@ -1,0 +1,40 @@
+{
+    "basal": [
+        "NaTs2_t", 
+        "Kv3_1", 
+        "Im", 
+        "Ih"
+    ], 
+    "all": [
+        "pas"
+    ], 
+    "apical": [
+        "NaTs2_t", 
+        "Kv3_1", 
+        "Im", 
+        "Ih"
+    ], 
+    "axonal": [
+        "K_Tst", 
+        "Kv3_1", 
+        "K_Pst", 
+        "CaDynamics", 
+        "Ca_LVA", 
+        "Ca_HVA", 
+        "NaTa_t", 
+        "SK", 
+        "Nap_Et2"
+    ], 
+    "somatic": [
+        "NaTs2_t", 
+        "K_Tst", 
+        "Kv3_1", 
+        "K_Pst", 
+        "CaDynamics", 
+        "Ca_LVA", 
+        "Ca_HVA", 
+        "SK", 
+        "Nap_Et2", 
+        "Ih"
+    ]
+}
