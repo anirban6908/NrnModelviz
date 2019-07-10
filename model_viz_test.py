@@ -1,5 +1,6 @@
 import sys
 from PyQt5 import QtCore, QtGui, uic
+from PyQt5.QtWidgets import QFileDialog
 import pyqtgraph as pg
 import numpy as np
 import glob
@@ -12,11 +13,11 @@ from ateamopt.utils import utility
 
 pg.setConfigOption('background', 'w')
 
- 
+
 qtCreatorFile = "Model_viz.ui" # Enter file here.
- 
+
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
- 
+
 class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -30,16 +31,27 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
             self.morph_path = self.morph_path[0]
         self.bpopt_config = os.path.join(os.getcwd(),'bluepyopt_config')
         self.bmtk_config = os.path.join(os.getcwd(),'bmtk_config')
-        self.RunSimulation.clicked.connect(self.run_bpopt_sim)
-    
+        self.model = None
+
+        # self.RunSimulation.clicked.connect(self.run_bpopt_sim)
+
+
+    def import_model(self):
+        options = QFileDialog.Options()
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)", options=options)
+        self.model = fileName
+
+    def import_morphology(self):
+        options = QFileDialog.Options()
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)", options=options)
+        self.morph_path = fileName
+
     @staticmethod
     def prepare_stim_protocol(stim_amp,delay=270,duration=1000,
                               total_duration=2270):
-        
+
         protocol_name = 'DC_stim'
-        
-        
-        
+
         soma_loc = ephys.locations.NrnSeclistCompLocation(
             name='soma',
             seclist_name='somatic',
@@ -52,22 +64,22 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
             variable='v')
 
         recordings = [somav_recording]
-        
+
         stimuli = []
         stimuli.append(ephys.stimuli.NrnSquarePulse(
-            step_amplitude=stim_amp, 
+            step_amplitude=stim_amp,
             step_delay=float(delay),
             step_duration=float(duration),
             location=soma_loc,
             total_duration=float(total_duration)))
-        
-        
+
+
         stim_protocol =  ephys.protocols.SweepProtocol(
                     protocol_name,
                     stimuli,
                     recordings)
         return stim_protocol,protocol_name
-    
+
     def run_bpopt_sim(self):
         stim_amp = float(self.stimAmp.value())*1e-3 # in nA
         stim_protocol,protocol_name = self.prepare_stim_protocol(stim_amp)
@@ -75,7 +87,7 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         mech_path= os.path.join(self.bpopt_config,'mechanism.json')
         release_param_path = os.path.join(self.bpopt_config,'release_param.json')
         release_params = utility.load_json(release_param_path)
-        
+
         morphology = ephys.morphologies.\
             NrnFileMorphology(self.morph_path, stub_axon=True)
         sim = ephys.simulators.NrnSimulator()
@@ -85,22 +97,22 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
                            mech_path=mech_path)
         mechanisms = eval_handler.define_mechanisms()
         parameters = eval_handler.define_parameters()
-        
+
         model_aa = ephys.models.CellModel('aa_model',
-                       morph=morphology, mechs=mechanisms, 
+                       morph=morphology, mechs=mechanisms,
                        params=parameters)
-            
+
         responses = stim_protocol.run(model_aa,release_params,sim)
         time_response = responses['{}.soma.v'.format(protocol_name)]['time']
         voltage_response =responses['{}.soma.v'.format(protocol_name)]['voltage']
-        
+
         self.simview.clear()
 #        a=np.random.randn(10)
 #        b=np.random.randn(10)
         self.simview.plot(time_response,voltage_response,
                           pen=pg.mkPen('k', width=2))
-        
- 
+
+
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     window = NrnModelViz()
