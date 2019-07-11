@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1043</width>
-    <height>691</height>
+    <width>1050</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,102 +62,6 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>120</y>
-      <width>242</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Axon type</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="axonType">
-       <item>
-        <property name="text">
-         <string>Stub axon</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Reconstructed axon</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QSplitter" name="splitter">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>183</y>
-      <width>211</width>
-      <height>451</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-    <widget class="QPushButton" name="vizMorph">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Visualize Morph</string>
-     </property>
-    </widget>
-    <widget class="PlotWidget" name="morphview"/>
-   </widget>
-   <widget class="QSplitter" name="splitter_3">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>10</y>
-      <width>251</width>
-      <height>281</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-    <widget class="QPushButton" name="plotAPshape">
-     <property name="text">
-      <string>AP shape</string>
-     </property>
-    </widget>
-    <widget class="PlotWidget" name="APshapeview"/>
-   </widget>
-   <widget class="QSplitter" name="splitter_4">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>300</y>
-      <width>261</width>
-      <height>331</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-    <widget class="QPushButton" name="plotEAP">
-     <property name="text">
-      <string>EAP</string>
-     </property>
-    </widget>
-    <widget class="PlotWidget" name="EAPview"/>
-   </widget>
    <widget class="QSplitter" name="splitter_5">
     <property name="geometry">
      <rect>
@@ -175,24 +79,50 @@
       <string>Electrode pos.</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="electrode_x"/>
+    <widget class="QSpinBox" name="electrode_x">
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+    </widget>
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>x</string>
      </property>
     </widget>
     <widget class="QSlider" name="x_slider">
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QSpinBox" name="electrode_y"/>
+    <widget class="QSpinBox" name="electrode_y">
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+    </widget>
     <widget class="QLabel" name="label_4">
      <property name="text">
       <string>y</string>
      </property>
     </widget>
     <widget class="QSlider" name="y_slider">
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -202,8 +132,21 @@
       <string>z</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="electrode_z"/>
+    <widget class="QSpinBox" name="electrode_z">
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+    </widget>
     <widget class="QSlider" name="z_slider">
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -277,6 +220,140 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="plotEAP_2">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>310</y>
+      <width>85</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>STA</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closeWindow">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>600</y>
+      <width>95</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Close</string>
+    </property>
+   </widget>
+   <widget class="PlotWidget" name="morphview">
+    <property name="geometry">
+     <rect>
+      <x>25</x>
+      <y>251</y>
+      <width>211</width>
+      <height>383</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="vizMorph">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>190</y>
+      <width>122</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>Visualize Morph</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="axonType">
+    <property name="geometry">
+     <rect>
+      <x>94</x>
+      <y>126</y>
+      <width>136</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Stub axon</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Reconstructed axon</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>67</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Axon type</string>
+    </property>
+   </widget>
+   <widget class="PlotWidget" name="APshapeview">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>54</y>
+      <width>261</width>
+      <height>237</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="plotAPshape">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>14</y>
+      <width>85</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AP shape</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="plotEAP">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>310</y>
+      <width>85</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EAP</string>
+    </property>
+   </widget>
+   <widget class="PlotWidget" name="EAPview">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>351</y>
+      <width>261</width>
+      <height>241</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>splitter_2</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>splitter</zorder>
@@ -286,14 +363,16 @@
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>comboBox</zorder>
+   <zorder>plotEAP_2</zorder>
+   <zorder>closeWindow</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1043</width>
-     <height>22</height>
+     <width>1050</width>
+     <height>27</height>
     </rect>
    </property>
   </widget>

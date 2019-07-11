@@ -9,6 +9,7 @@ import bluepyopt as bpopt
 import bluepyopt.ephys as ephys
 from ateamopt.bpopt_evaluator import Bpopt_Evaluator
 from ateamopt.utils import utility
+import utility_functions as uf
 
 
 pg.setConfigOption('background', 'w')
@@ -24,22 +25,26 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.sim_components = os.path.join(os.getcwd(),'sim_components')
-        self.morph_path = glob.glob(self.sim_components+'/*.swc')
-        if len(self.morph_path) > 1:
-            raise Exception
-        else:
-            self.morph_path = self.morph_path[0]
+#        self.morph_path = glob.glob(self.sim_components+'/*.swc')
+#        if len(self.morph_path) > 1:
+#            raise Exception
+#        else:
+#            self.morph_path = self.morph_path[0]
         self.bpopt_config = os.path.join(os.getcwd(),'bluepyopt_config')
         self.bmtk_config = os.path.join(os.getcwd(),'bmtk_config')
         self.model = None
-
-        # self.RunSimulation.clicked.connect(self.run_bpopt_sim)
-
+        self.RunSimulation.clicked.connect(self.run_bpopt_sim)
+        self.closeWindow.clicked.connect(self.closeApp)
 
     def import_model(self):
         options = QFileDialog.Options()
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)", options=options)
-        self.model = fileName
+        param_dict = utility.load_json(fileName)
+        aibs_param_dict = uf.param_dict_to_AIBS_param(param_dict)
+        aibs_param_filename = os.path.join(self.bmtk_config,
+                   'biophysical_neuron_templates/param_aibs_aa_model.json')
+        utility.create_filepath(aibs_param_filename)
+        utility.save_json(aibs_param_filename,aibs_param_dict)
 
     def import_morphology(self):
         options = QFileDialog.Options()
@@ -82,14 +87,20 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
 
     def run_bpopt_sim(self):
         stim_amp = float(self.stimAmp.value())*1e-3 # in nA
+        delay,duration,total_duration=270,1000,2270
         stim_protocol,protocol_name = self.prepare_stim_protocol(stim_amp)
+        
         param_path = os.path.join(self.bpopt_config,'parameters.json')
         mech_path= os.path.join(self.bpopt_config,'mechanism.json')
         release_param_path = os.path.join(self.bpopt_config,'release_param.json')
         release_params = utility.load_json(release_param_path)
-
-        morphology = ephys.morphologies.\
-            NrnFileMorphology(self.morph_path, stub_axon=True)
+        axon_type = str(self.axonType.currentText())
+        if axon_type == 'Stub axon':
+            morphology = ephys.morphologies.\
+                NrnFileMorphology(self.morph_path, stub_axon=True)
+        else:
+            morphology = ephys.morphologies.\
+                NrnFileMorphology(self.morph_path, do_replace_axon=True)
         sim = ephys.simulators.NrnSimulator()
         eval_handler = Bpopt_Evaluator(protocol_path=None,
                            feature_path=None,
@@ -107,10 +118,13 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         voltage_response =responses['{}.soma.v'.format(protocol_name)]['voltage']
 
         self.simview.clear()
-#        a=np.random.randn(10)
-#        b=np.random.randn(10)
+
         self.simview.plot(time_response,voltage_response,
-                          pen=pg.mkPen('k', width=2))
+                          pen=pg.mkPen('k', width=4))
+        self.simview.setRange(xRange=[delay-50,delay+duration+50])
+
+    def closeApp(self):
+        sys.exit()
 
 
 if __name__ == "__main__":
