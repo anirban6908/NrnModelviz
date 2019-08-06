@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ateamopt.morph_handler import Morph_handler
 
+
 # function to calculate spike triggered average and covariance for one channels
 def cal_STA_STC_onech(data,spikes,win,dt): # data: one_dimensional data
     lwin = win[0]
@@ -65,12 +66,12 @@ theta_x,theta_y,theta_z = morph_handler.calc_euler_angle\
 node_props = {'cell_name' : cell_name,
               'model_type' : 'biophysical',
               'model_template' : 'ctdb:Biophys1.hoc',
-              'model_processing' : 'aibs_allactive_ani_directed',
+              'model_processing' : 'aibs_allactive_bpopt_axon_directed',
               'dynamics_params' : 'param_aibs_%s.json'%cell_name,
               'morphology': '%s.swc'%cell_name,
               'rotation_angle_xaxis':[theta_x],
               'rotation_angle_yaxis':[theta_y],
-              'rotation_angle_zaxis':[theta_z]
+              'rotation_angle_zaxis':[-theta_z]
               }
 
 net.add_nodes(**node_props)

@@ -14,169 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>50</y>
-      <width>104</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>AP_first</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>AP_last</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>mean_AP</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QSplitter" name="splitter_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>201</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-    <widget class="QPushButton" name="loadModel">
-     <property name="text">
-      <string>Import Model</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadMorph">
-     <property name="text">
-      <string>Import Morphology</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QSplitter" name="splitter_5">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>350</y>
-      <width>91</width>
-      <height>281</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Electrode pos.</string>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="electrode_x">
-     <property name="minimum">
-      <number>-100</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>x</string>
-     </property>
-    </widget>
-    <widget class="QSlider" name="x_slider">
-     <property name="minimum">
-      <number>-100</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="electrode_y">
-     <property name="minimum">
-      <number>-100</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>y</string>
-     </property>
-    </widget>
-    <widget class="QSlider" name="y_slider">
-     <property name="minimum">
-      <number>-100</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>z</string>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="electrode_z">
-     <property name="minimum">
-      <number>-100</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-    </widget>
-    <widget class="QSlider" name="z_slider">
-     <property name="minimum">
-      <number>-100</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>59</y>
-      <width>371</width>
-      <height>571</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="PlotWidget" name="simview"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>Multipatch</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="PlotWidget" name="PatchView"/>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -220,11 +57,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="plotEAP_2">
+   <widget class="QPushButton" name="eap_STA">
     <property name="geometry">
      <rect>
-      <x>920</x>
-      <y>310</y>
+      <x>760</x>
+      <y>330</y>
       <width>85</width>
       <height>31</height>
      </rect>
@@ -236,8 +73,8 @@
    <widget class="QPushButton" name="closeWindow">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>600</y>
+      <x>490</x>
+      <y>650</y>
       <width>95</width>
       <height>31</height>
      </rect>
@@ -246,21 +83,11 @@
      <string>Close</string>
     </property>
    </widget>
-   <widget class="PlotWidget" name="morphview">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>251</y>
-      <width>211</width>
-      <height>383</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="vizMorph">
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>190</y>
+      <y>160</y>
       <width>122</width>
       <height>31</height>
      </rect>
@@ -279,7 +106,7 @@
     <property name="geometry">
      <rect>
       <x>94</x>
-      <y>126</y>
+      <y>110</y>
       <width>136</width>
       <height>29</height>
      </rect>
@@ -299,7 +126,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>130</y>
+      <y>114</y>
       <width>67</width>
       <height>21</height>
      </rect>
@@ -314,28 +141,15 @@
       <x>770</x>
       <y>54</y>
       <width>261</width>
-      <height>237</height>
+      <height>261</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="plotAPshape">
-    <property name="geometry">
-     <rect>
-      <x>860</x>
-      <y>14</y>
-      <width>85</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>AP shape</string>
     </property>
    </widget>
    <widget class="QPushButton" name="plotEAP">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>310</y>
+      <x>630</x>
+      <y>330</y>
       <width>85</width>
       <height>31</height>
      </rect>
@@ -347,24 +161,341 @@
    <widget class="PlotWidget" name="EAPview">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>351</y>
-      <width>261</width>
-      <height>241</height>
+      <x>560</x>
+      <y>370</y>
+      <width>341</width>
+      <height>261</height>
      </rect>
     </property>
    </widget>
-   <zorder>splitter_2</zorder>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>617</x>
+      <y>80</y>
+      <width>127</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Intra Electrode Pos</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>10</y>
+      <width>147</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="loadMorph">
+       <property name="text">
+        <string>Import Morphology</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="loadModel">
+       <property name="text">
+        <string>Import Model</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>340</y>
+      <width>123</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Ext. Electrode Pos</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="electrode_x">
+       <property name="minimum">
+        <number>-20</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>x</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="x_slider">
+       <property name="minimum">
+        <number>-100</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="electrode_y">
+       <property name="minimum">
+        <number>-20</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="y_slider">
+       <property name="minimum">
+        <number>-100</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>y</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="electrode_z">
+       <property name="minimum">
+        <number>-20</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="z_slider">
+       <property name="minimum">
+        <number>-100</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>z</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>108</y>
+      <width>131</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QSpinBox" name="intra_electrode_dendrite">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>300</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>apical (from soma)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="x_slider_2">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>300</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="intra_electrode_axon">
+       <property name="minimum">
+        <number>-100</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>axon (from soma)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="y_slider_2">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>60</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="plotMultipatchRec">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>330</y>
+      <width>165</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Multipatch Recordings</string>
+    </property>
+   </widget>
+   <widget class="PlotWidget" name="simview">
+    <property name="geometry">
+     <rect>
+      <x>251</x>
+      <y>60</y>
+      <width>351</width>
+      <height>261</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="PlotWidget" name="PatchView">
+    <property name="geometry">
+     <rect>
+      <x>251</x>
+      <y>370</y>
+      <width>281</width>
+      <height>261</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>821</x>
+      <y>14</y>
+      <width>180</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>AP_first</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AP_last</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mean_AP</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="plotAPshape">
+       <property name="text">
+        <string>AP shape</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="GLViewWidget" name="morphwidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>200</y>
+      <width>211</width>
+      <height>431</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>layoutWidget</zorder>
-   <zorder>splitter</zorder>
-   <zorder>splitter_3</zorder>
-   <zorder>splitter_4</zorder>
-   <zorder>splitter_5</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>plotMultipatchRec</zorder>
+   <zorder>simview</zorder>
+   <zorder>PatchView</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>vizMorph</zorder>
+   <zorder>axonType</zorder>
+   <zorder>label</zorder>
+   <zorder>APshapeview</zorder>
+   <zorder>plotEAP</zorder>
+   <zorder>EAPview</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
-   <zorder>comboBox</zorder>
-   <zorder>plotEAP_2</zorder>
+   <zorder>eap_STA</zorder>
    <zorder>closeWindow</zorder>
+   <zorder>label_6</zorder>
+   <zorder>morphwidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -405,6 +536,11 @@
    <extends>QGraphicsView</extends>
    <header>pyqtgraph</header>
   </customwidget>
+  <customwidget>
+   <class>GLViewWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>pyqtgraph.opengl</header>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -415,8 +551,8 @@
    <slot>import_model()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>76</x>
-     <y>60</y>
+     <x>117</x>
+     <y>118</y>
     </hint>
     <hint type="destinationlabel">
      <x>521</x>
@@ -431,8 +567,8 @@
    <slot>import_morphology()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>125</x>
-     <y>114</y>
+     <x>166</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>521</x>
@@ -464,7 +600,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>717</x>
-     <y>562</y>
+     <y>584</y>
     </hint>
     <hint type="destinationlabel">
      <x>709</x>
@@ -485,6 +621,38 @@
     <hint type="destinationlabel">
      <x>683</x>
      <y>630</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>x_slider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>intra_electrode_dendrite</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>690</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>692</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>y_slider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>intra_electrode_axon</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>715</x>
+     <y>331</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>709</x>
+     <y>283</y>
     </hint>
    </hints>
   </connection>
