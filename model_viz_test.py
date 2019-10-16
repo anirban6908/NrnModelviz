@@ -5,13 +5,12 @@ import pyqtgraph as pg
 import numpy as np
 import os
 import math
-import os
 import bluepyopt.ephys as ephys
 from ateamopt.bpopt_evaluator import Bpopt_Evaluator
 from ateamopt.utils import utility
 import utility_functions as uf
 import ateam.sim.setup as sim
-from ateamopt.morph_handler import Morph_handler
+from ateamopt.morph_handler import MorphHandler
 import shutil
 import h5py
 from bmtk.builder.networks import NetworkBuilder
@@ -48,7 +47,8 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
 
     def import_model(self):
         options = QFileDialog.Options()
-        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()",
+                                                  "","All Files (*)", options=options)
         param_unknown = utility.load_json(fileName)
         bpopt_mech_filename = os.path.join(self.bpopt_config,
                            'mech_bpopt_aa_model.json')
@@ -95,16 +95,12 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
 
         dend_elec_pos = float(self.intra_electrode_dendrite.value())
         axon_elec_pos = float(self.intra_electrode_axon.value())
-        somav_recording = ephys.recordings.CompRecording(
-            name='%s.soma.v' %
-            protocol_name,
-            location=soma_loc,
-            variable='v')
+        somav_recording = ephys.recordings.CompRecording(name='%s.soma.v' %
+                    protocol_name,location=soma_loc,variable='v')
 
         recordings = [somav_recording]
         dend_type = 'basal' if self.no_apical else 'apical'
-        extra_recording_def = {dend_type:dend_elec_pos,
-                               'axonal':axon_elec_pos}
+        extra_recording_def = {dend_type:dend_elec_pos,'axonal':axon_elec_pos}
 
         for rec_key,rec_val in extra_recording_def.items():
             if rec_val != 0:
@@ -177,11 +173,11 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         resp_filename = os.path.join(self.bpopt_sim,'model_resp.pkl')
         utility.create_filepath(resp_filename)
         utility.save_pickle(resp_filename,responses)
-
+                
         self.simview.clear()
-
         self.simview.plot(time_response,voltage_response,
-                          pen=pg.mkPen('b', width=3))
+                          pen=pg.mkPen(color=uf.convert_mpl_color_to_rgb_tuple('deepskyblue'),
+                           width=3))
         self.simview.setRange(xRange=[delay-50,delay+duration+50])
 
 
@@ -190,7 +186,7 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         delay,duration,total_duration=270.0,1000.0,2270.0
         resp_filename = os.path.join(self.bpopt_sim,'model_resp.pkl')
         responses = utility.load_pickle(resp_filename)
-        color_dict = {'soma':'b','apical': 'r','axonal':'g'}
+        color_dict = {'soma':'deepskyblue','apical': 'r','axonal':'g'}
         self.PatchView.addLegend()
         for resp_key,resp_val in responses.items():
             comp_name = resp_key.split('.')[1]
@@ -198,11 +194,10 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
                 t_ = resp_val['time']
                 v_ = resp_val['voltage']
                 self.PatchView.plot(t_,v_,
-                         pen=pg.mkPen(color_dict[comp_name], width=3),
-                         name = comp_name)
+                     pen=pg.mkPen(color=uf.convert_mpl_color_to_rgb_tuple(color_dict[comp_name]),
+                      width=3),name = comp_name)
         midpoint = delay+duration/2
         self.PatchView.setRange(xRange=[midpoint-50,midpoint+50])
-#        self.PatchView.setRange(xRange=[delay-50,delay+duration+50])
 
     def run_bmtk_sim(self):
         stim_amp = float(self.stimAmp.value())*1e-3 # in nA
@@ -226,7 +221,7 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
                                format(cell_name))
         utility.create_filepath(bmtk_morph_path)
         shutil.copyfile(self.morph_path,bmtk_morph_path)
-        morph_handler = Morph_handler(self.morph_path)
+        morph_handler = MorphHandler(self.morph_path)
         morph_data,morph_apical,morph_axon = morph_handler.\
                                     get_morph_coords()
         theta_x,theta_y,theta_z = morph_handler.calc_euler_angle\
@@ -335,8 +330,8 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         protocol_name = 'DC_stim'
         resp_filename = os.path.join(self.bpopt_sim,'model_resp.pkl')
         responses = utility.load_pickle(resp_filename)
-        time = responses['{}.soma.v'.format(protocol_name)]['time']
-        voltage =responses['{}.soma.v'.format(protocol_name)]['voltage']
+        time = responses['{}.soma.v'.format(protocol_name)]['time'].values
+        voltage =responses['{}.soma.v'.format(protocol_name)]['voltage'].values
 
         # Prepare sweep for eFEL
         sweep = {}
@@ -357,16 +352,16 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
                         spike_times,AP_shape_time,
                         AP_shape_voltage)
         AP_shape_voltage /= len(spike_times)
-
+        
         self.APshapeview.clear()
-
         self.APshapeview.plot(AP_shape_time,AP_shape_voltage,
-                          pen=pg.mkPen('b', width=3))
+                          pen=pg.mkPen(color=uf.convert_mpl_color_to_rgb_tuple('deepskyblue'),
+                           width=3))
         self.APshapeview.setRange(xRange=[AP_shape_time[0]-.1,
                                       AP_shape_time[-1]+.1])
 
     def viz_morph(self):
-        morph_handler = Morph_handler(self.morph_path)
+        morph_handler = MorphHandler(self.morph_path)
         morph_data,morph_apical,morph_axon = morph_handler.\
                             get_morph_coords()
         theta,axis_of_rot = morph_handler.calc_rotation_angle\
@@ -376,14 +371,11 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         
         morph_z_center = (np.max(morph_z) + np.min(morph_z))/2 
         morph_pos[:,2] -= morph_z_center
-#        self.morphview.clear()
         for item_ in self.morphwidget.items:
             self.morphwidget.items.remove(item_)
         
-        size_vec = 1.5*np.ones(morph_pos.shape[0])
-#        color_arr = np.array([255,105,180,255])/255.0
+        size_vec = 2.5*np.ones(morph_pos.shape[0])
         color_arr = (1, 0,0,.5)
-        color_mat = np.tile(color_arr,(morph_pos.shape[0],1))
         sc = gl.GLScatterPlotItem(pos=morph_pos,
                     color = color_arr,
                     size=size_vec,
@@ -391,20 +383,12 @@ class NrnModelViz(QtGui.QMainWindow, Ui_MainWindow):
         soma_pos = np.reshape(np.array([0,0,-morph_z_center]),(1,3))
         sc_soma = gl.GLScatterPlotItem(pos=soma_pos,
                     color = (1, 0,0,1),
-                    size=15,
+                    size=30,
                     pxMode=False)
-#        sc= pg.ScatterPlotItem(x=morph_x,y=morph_z,pen=pg.mkPen(None),
-#                        brush=pg.mkBrush(255,105,180,200),size=1.5)
-#        sc.addPoints(x=[0],y=[0],pen=pg.mkPen(None),
-#                        brush=pg.mkBrush(255,105,180,255),size=15)
-#    
-#        self.morphview.addItem(sc)
-        
+
         self.morphwidget.addItem(sc)
         self.morphwidget.addItem(sc_soma)
-        self.morphwidget.setCameraPosition(distance=250,
-#                                           azimuth = 45,
-                                           elevation=30)
+        self.morphwidget.setCameraPosition(distance=250,elevation=30)
 
     def closeApp(self):
         sys.exit()

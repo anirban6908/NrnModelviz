@@ -2,8 +2,8 @@ from ateamopt.utils import utility
 from collections import defaultdict
 import re
 import numpy as np
-from ateamopt.morph_handler import Morph_handler
-        
+import matplotlib as mpl
+   
 def param_dict_to_AIBS_param(param_dict,ena=53,ek=-107,\
                              temp=34,v_init= -80,
                              expand_params=True,
@@ -216,3 +216,9 @@ def cal_STA_STC(data,spikes,win,dt): # ecp_data: channels*times; output: channel
                  dt)
     
     return (t_STA,STA,STC)
+
+
+def convert_mpl_color_to_rgb_tuple(named_mpl_color):
+    color = mpl.colors.to_rgb(named_mpl_color)
+    color=tuple(color_*255 for color_ in color)
+    return color
